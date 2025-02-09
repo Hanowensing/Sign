@@ -7,57 +7,89 @@
 </head>
 <body>
     <script>
+        /**
+         * ✅ URL에서 Authorization Code 가져오기
+         */
         function getAuthCode() {
             const params = new URLSearchParams(window.location.search);
-            return params.get('code'); // 🔥 Authorization Code 가져오기
+            return params.get('code'); 
         }
 
+        /**
+         * ✅ Render에 배포된 백엔드 URL을 사용해야 함!
+         * - `http://localhost:3000` ❌ (로컬 환경)
+         * - `https://signcollector-api.onrender.com/auth/google` ✅ (배포된 백엔드)
+         */
+        const BACKEND_URL = "https://signcollector-api.onrender.com/auth/google"; // 🔥 Render 배포된 백엔드 URL 적용
+
+        /**
+         * ✅ Authorization Code를 백엔드에 전달하여 Access Token 요청
+         */
         async function sendAuthCodeToBackend(authCode) {
             try {
-                const response = await fetch('http://localhost:3000/auth/google', { // 🔥 백엔드로 Authorization Code 전달
+                const response = await fetch(BACKEND_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ code: authCode })
                 });
 
                 const data = await response.json();
-                console.log('Google Access Token:', data.access_token);
 
                 if (data.access_token) {
+                    console.log('✅ Google Access Token:', data.access_token);
                     fetchUserInfo(data.access_token);
                 } else {
-                    console.error('토큰 요청 실패:', data);
+                    console.error('❌ 토큰 요청 실패:', data);
+                    alert("Google 로그인 실패. 다시 시도해주세요.");
                     window.location.href = 'index.html'; // 로그인 페이지로 돌아가기
                 }
 
             } catch (error) {
-                console.error('백엔드 요청 오류:', error);
+                console.error('❌ 백엔드 요청 오류:', error);
+                alert("서버 오류 발생. 다시 시도해주세요.");
+                window.location.href = 'index.html';
             }
         }
 
+        /**
+         * ✅ Access Token으로 Google 사용자 정보 가져오기
+         */
         async function fetchUserInfo(accessToken) {
             console.log("📥 Google API 요청: Access Token 사용", accessToken);
 
-            const response = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
-                headers: { Authorization: `Bearer ${accessToken}` }
-            });
+            try {
+                const response = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+                    headers: { Authorization: `Bearer ${accessToken}` }
+                });
 
-            const userInfo = await response.json();
-            console.log('Google 사용자 정보:', userInfo);
+                const userInfo = await response.json();
+                console.log('✅ Google 사용자 정보:', userInfo);
 
-            // ✅ 로컬 스토리지에 저장
-            localStorage.setItem('googleUser', JSON.stringify(userInfo));
-            localStorage.setItem("access_token",accessToken);
-            // ✅ 메인 페이지로 이동
-            window.location.href = 'mainpage.html';
+                // ✅ 로컬 스토리지에 사용자 정보 저장
+                localStorage.setItem('googleUser', JSON.stringify(userInfo));
+                localStorage.setItem("access_token", accessToken);
+
+                // ✅ 메인 페이지로 이동
+                window.location.href = 'mainpage.html';
+
+            } catch (error) {
+                console.error("❌ 사용자 정보 요청 실패:", error);
+                alert("Google 사용자 정보를 가져오는데 실패했습니다.");
+                window.location.href = 'index.html';
+            }
         }
 
+        /**
+         * ✅ 로그인 시작
+         */
         const authCode = getAuthCode();
         if (authCode) {
-            sendAuthCodeToBackend(authCode); // 🔥 백엔드로 Authorization Code 전송
+            console.log("📌 Authorization Code:", authCode);
+            sendAuthCodeToBackend(authCode);
         } else {
-            console.error('Authorization Code 없음');
-            window.location.href = 'index.html'; // 실패 시 로그인 페이지로 이동
+            console.error('❌ Authorization Code 없음');
+            alert("Google 인증 코드가 없습니다. 다시 로그인해주세요.");
+            window.location.href = 'index.html';
         }
     </script>
 </body>

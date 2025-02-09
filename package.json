@@ -1,6 +1,15 @@
 {
+  "name": "google-oauth-backend",
+  "version": "1.0.0",
+  "description": "Google OAuth 백엔드 (Render 배포용)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
   "dependencies": {
     "dotenv": "^16.4.7",
-    "node-fetch": "^3.3.2"
+    "express": "^4.17.1",
+    "cors": "^2.8.5",
+    "axios": "^1.4.0"
   }
 }
