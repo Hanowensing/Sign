@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     loginButton.addEventListener('click', function() {
         const clientId = '233020625461-eu3jcm65pln92ph2p6ud3mfeqb86e7gj.apps.googleusercontent.com';
-        const REDIRECT_URI = "https://signcollector.netlify.app/callback.html"; // ✅ Netlify URL로 변경
+        const redirectUri = "https://signcollector.netlify.app/callback.html"; // ✅ Netlify URL로 변경
         const scope = encodeURIComponent('openid email profile'); // ✅ 추가: OpenID 연결
         const responseType = 'code';  // 🔥 변경: OAuth 2.0 최신 정책 적용
 
