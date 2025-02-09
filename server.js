@@ -7,26 +7,31 @@ const path = require("path");
 const app = express();
 app.use(express.json());
 
-// ✅ CORS 설정 (Netlify & 로컬 테스트 허용)
+// ✅ 허용할 도메인 설정 (Netlify & 로컬 테스트용)
 const allowedOrigins = [
     "https://signcollector.netlify.app",  // Netlify 도메인 (프론트엔드)
     "http://localhost:3000"               // 로컬 테스트용
 ];
 
-app.use((req, res, next) => {
-    const origin = req.headers.origin;
-    if (allowedOrigins.includes(origin)) {
-        res.setHeader("Access-Control-Allow-Origin", origin);
-    }
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    res.setHeader("Access-Control-Allow-Credentials", "true");
+// ✅ CORS 옵션 설정
+const corsOptions = {
+    origin: function (origin, callback) {
+        // 요청에 origin이 없는 경우(예: 서버 간 요청)는 허용
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        } else {
+            return callback(new Error("Not allowed by CORS"));
+        }
+    },
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+};
 
-    if (req.method === "OPTIONS") {
-        return res.sendStatus(200);
-    }
-    next();
-});
+// ✅ CORS 미들웨어 적용 (OPTIONS 요청도 자동 처리됨)
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 // ✅ 환경 변수에서 Google OAuth 설정 불러오기
 const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
@@ -63,15 +68,19 @@ app.post("/auth/google", async (req, res) => {
 
     try {
         // 🔥 Google 서버에 Authorization Code를 보내서 Access Token 요청
-        const tokenResponse = await axios.post("https://oauth2.googleapis.com/token", new URLSearchParams({
-            code: code,
-            client_id: CLIENT_ID,
-            client_secret: CLIENT_SECRET,
-            redirect_uri: REDIRECT_URI,
-            grant_type: "authorization_code"
-        }).toString(), {
-            headers: { "Content-Type": "application/x-www-form-urlencoded" }
-        });
+        const tokenResponse = await axios.post(
+            "https://oauth2.googleapis.com/token",
+            new URLSearchParams({
+                code: code,
+                client_id: CLIENT_ID,
+                client_secret: CLIENT_SECRET,
+                redirect_uri: REDIRECT_URI,
+                grant_type: "authorization_code"
+            }).toString(),
+            {
+                headers: { "Content-Type": "application/x-www-form-urlencoded" }
+            }
+        );
 
         const { access_token } = tokenResponse.data;
         console.log("🔑 Google Access Token:", access_token);
