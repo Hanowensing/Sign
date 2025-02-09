@@ -26,8 +26,13 @@ app.use(cors({
     credentials: true
 }));
 
-// ✅ Preflight OPTIONS 요청을 처리
-app.options("*", cors());
+// ✅ Preflight OPTIONS 요청 처리 (이거 없으면 Preflight 요청 차단됨!)
+app.options("*", (req, res) => {
+    res.header("Access-Control-Allow-Origin", allowedOrigins.join(","));
+    res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.sendStatus(200);
+});
 
 // ✅ 환경 변수에서 Google OAuth 설정 불러오기
 const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
@@ -51,7 +56,7 @@ app.get("/login", (req, res) => {
     const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${responseType}&scope=${scope}&access_type=offline`;
 
     console.log("✅ 생성된 Google OAuth URL:", authUrl);
-    res.json({ authUrl }); // ✅ JSON으로 반환
+    res.json({ authUrl });
 });
 
 // ✅ Google OAuth 콜백: Authorization Code를 받아 Access Token 요청
