@@ -14,9 +14,16 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-    origin: "*", // 🚀 모든 도메인에서 요청 허용,
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("CORS 정책에 의해 차단됨"));
+        }
+    },
     methods: ["GET", "POST", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"]
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true
 }));
 
 // ✅ Preflight OPTIONS 요청을 처리
