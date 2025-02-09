@@ -14,7 +14,7 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-    origin: allowedOrigins,
+    origin: "*", // 🚀 모든 도메인에서 요청 허용,
     methods: ["GET", "POST", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"]
 }));
