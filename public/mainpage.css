@@ -58,11 +58,12 @@ main {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* ✅ 3개씩 배치 */
     gap: 15px; /* ✅ 간격 추가 */
-    max-width: 90%;
+    max-width: 100%;
     width: 100%; /* ✅ 부모 요소 크기와 동일하게 맞춤 */
-    margin: 20px auto;
+    margin: auto;
     padding: 10px;
     justify-content: center; /* 📌 중앙 정렬 */
+    align-content: center;
 }
 /* 프로필 위치를 왼쪽 상단에 고정 */
 .user-profile {
@@ -155,8 +156,8 @@ main {
     align-items: center;
     padding: 10px;
     width: 100%;
-    max-width: 50px; /* ✅ 액자의 최대 너비 제한 */
-    height: 50px; /* 📌 카드 높이 일정 */
+    max-width: 300px; /* ✅ 액자의 최대 너비 제한 */
+    height: auto; /* 📌 카드 높이 일정 */
 }
 
 .sign-title {
@@ -166,8 +167,9 @@ main {
 }
 
 .sign-image {
-    width: 70px; /* 📌 이미지 크기 일정하게 */
-    height: 70px;
+    width: 100%; /* 📌 이미지 크기 일정하게 */
+    max-width: 250px;
+    height: auto;
     object-fit: contain;
     border-radius: 5px;
 }
