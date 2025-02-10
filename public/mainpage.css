@@ -13,6 +13,15 @@ body {
     margin: auto; /* ✅ 좌우 여백 자동 조정 */
 }
 
+.button-container {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* 버튼 간격 */
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
 h1 {
     font-size: 1.3rem;
     margin-bottom: 10px;
@@ -206,11 +215,11 @@ main {
 }
 
 .trash-btn {
-    font-size: 18px;  /* 아이콘 크기 조정 */
+    font-size: 24px; /* 아이콘 크기 */
     border: none;
     cursor: pointer;
     padding: 5px;
-    background: none;  /* ❌ 배경 제거 */
+    background: none;
     display: flex;
     align-items: center;
     justify-content: center;
