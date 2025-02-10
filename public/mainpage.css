@@ -44,14 +44,16 @@ main {
 
 .sign-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* ✅ 3개씩 배치 */
-    gap: 15px; /* ✅ 간격 추가 */
-    max-width: 1200px;
-    width: 100%; /* ✅ 부모 요소 크기와 동일하게 맞춤 */
+    grid-template-columns: repeat(3, 1fr); /* ✅ 항상 3개씩 유지 */
+    gap: 15px;
+    width: 100%; /* ✅ main 요소에 맞춤 */
+    max-width: inherit; /* ✅ main의 max-width와 동일하게 설정 */
+    max-height: 100%; /* ✅ main의 높이를 벗어나지 않도록 제한 */
     margin: auto;
     padding: 10px;
-    justify-content: center; /* 📌 중앙 정렬 */
+    justify-content: center;
     align-content: center;
+    overflow-y: auto; /* ✅ 스크롤 허용 */
 }
 /* 프로필 위치를 왼쪽 상단에 고정 */
 .user-profile {
@@ -196,41 +198,23 @@ main {
     background-color: #f0f0f0;
 }
 
-/* ✅ 반응형 디자인 (모바일 600px 이하) */
 @media screen and (max-width: 600px) {
     .sign-container {
-        grid-template-columns: repeat(3, minmax(70px, 1fr)); /* 📌 모바일에서 3개 유지 */
-        gap: 3px; /* 📌 간격 더 줄이기 */
-        justify-content:center;
-    }
-
-    .sign-card {
-        max-width: 80px;
+        grid-template-columns: repeat(3, 1fr); /* ✅ 모바일에서도 무조건 3개 유지 */
+        gap: 3px;
     }
 }
 
-/* 📌 반응형 디자인 (패드) */
 @media screen and (min-width: 768px) and (max-width: 1024px) {
     .sign-container {
-        grid-template-columns: repeat(9, minmax(70px, 1fr)); /* 📌 패드에서 9개씩 */
+        grid-template-columns: repeat(3, 1fr); /* ✅ 태블릿에서도 무조건 3개 유지 */
         gap: 5px;
-        justify-content:center;
-    }
-
-    .sign-card {
-        max-width: 90px;
     }
 }
 
-/* 📌 반응형 디자인 (데스크탑) */
 @media screen and (min-width: 1024px) {
     .sign-container {
-        grid-template-columns: repeat(9, minmax(90px, 1fr)); /* 📌 데스크탑에서 9개 유지 */
+        grid-template-columns: repeat(3, 1fr); /* ✅ 데스크탑에서도 무조건 3개 유지 */
         gap: 8px;
-        justify-content:center;
-    }
-
-    .sign-card {
-        max-width: 100px;
     }
 }
