@@ -208,6 +208,49 @@ main {
     background-color: #f0f0f0;
 }
 
+/* ✅ 버튼 컨테이너 스타일 (플러스 + 휴지통 버튼 정렬) */
+.button-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 버튼 간격 */
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+/* ✅ 플러스 버튼 스타일 */
+.plus-btn, .trash-btn {
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    background: none; /* ✅ 배경 없애기 */
+}
+
+/* ✅ 삭제 선택 라디오 버튼 스타일 */
+.delete-radio {
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+/* ✅ 검정 테두리 제거 */
+.sign-card {
+    border: none !important; /* ✅ 테두리 제거 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+/* ✅ 이미지 크기 및 스타일 */
+.sign-image {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+
 /* ✅ 반응형 디자인 (모바일 600px 이하) */
 @media screen and (max-width: 600px) {
     .sign-container {
