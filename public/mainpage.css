@@ -43,12 +43,11 @@ main {
 }
 
 #savedSignContainer {
-    width: 90%;  /* main 요소의 90% */
-    height: 90%; /* main 요소의 90% */
+    width: 100%;  /* main 요소의 90% */
+    height: 90vh; /* main 요소의 90% */
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* 100px 이상, 가능한 최대 개수 */
-    gap: 10px;  /* 사진 간격 */
-    justify-content: start; /* 왼쪽 정렬 */
+    grid-template-columns: repeat(3, minmax(0, 1fr)); /* ✅ 항상 3개씩 균등 배치 */
+    justify-content: center; /* 왼쪽 정렬 */
     align-content: start; /* 위쪽 정렬 */
     overflow-y: auto; /* 스크롤 허용 */
     border: 2px solid black; /* 디버깅용 */
@@ -58,7 +57,7 @@ main {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* ✅ 3개씩 배치 */
     gap: 15px; /* ✅ 간격 추가 */
-    max-width: 100%;
+    max-width: 1200px;
     width: 100%; /* ✅ 부모 요소 크기와 동일하게 맞춤 */
     margin: auto;
     padding: 10px;
