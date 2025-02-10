@@ -51,7 +51,6 @@ main {
     justify-content: start; /* 왼쪽 정렬 */
     align-content: start; /* 위쪽 정렬 */
     overflow-y: auto; /* 스크롤 허용 */
-    border: 2px solid black; /* 디버깅용 */
     padding: 10px; /* 내부 여백 추가 */
 }
 .sign-container {
@@ -149,7 +148,6 @@ main {
 /* ✅ 액자 스타일 */
 .sign-card {
     background-color: white;
-    border: 2px solid black;
     border-radius: 10px; /* ✅ 둥근 모서리 */
     display: flex;
     flex-direction: column;
@@ -158,7 +156,6 @@ main {
     width: 100%;
     max-width: 50px; /* ✅ 액자의 최대 너비 제한 */
     height: 50px; /* 📌 카드 높이 일정 */
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .sign-title {
@@ -208,48 +205,16 @@ main {
     background-color: #f0f0f0;
 }
 
-/* ✅ 버튼 컨테이너 스타일 (플러스 + 휴지통 버튼 정렬) */
-.button-container {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* 버튼 간격 */
-    position: absolute;
-    top: 10px;
-    right: 20px;
-}
-
-/* ✅ 플러스 버튼 스타일 */
-.plus-btn, .trash-btn {
-    font-size: 20px;
+.trash-btn {
+    font-size: 18px;  /* 아이콘 크기 조정 */
     border: none;
     cursor: pointer;
     padding: 5px;
-    background: none; /* ✅ 배경 없애기 */
-}
-
-/* ✅ 삭제 선택 라디오 버튼 스타일 */
-.delete-radio {
-    margin-top: 5px;
-    cursor: pointer;
-}
-
-/* ✅ 검정 테두리 제거 */
-.sign-card {
-    border: none !important; /* ✅ 테두리 제거 */
+    background: none;  /* ❌ 배경 제거 */
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 10px;
 }
-
-/* ✅ 이미지 크기 및 스타일 */
-.sign-image {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
-}
-
 
 /* ✅ 반응형 디자인 (모바일 600px 이하) */
 @media screen and (max-width: 600px) {
