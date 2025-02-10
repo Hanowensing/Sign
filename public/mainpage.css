@@ -199,38 +199,26 @@ main {
 /* ✅ 반응형 디자인 (모바일 600px 이하) */
 @media screen and (max-width: 600px) {
     .sign-container {
-        grid-template-columns: repeat(3, minmax(70px, 1fr)); /* 📌 모바일에서 3개 유지 */
+        grid-template-columns: repeat(3, 1fr); /* 📌 모바일에서 3개 유지 */
         gap: 3px; /* 📌 간격 더 줄이기 */
         justify-content:center;
-    }
-
-    .sign-card {
-        max-width: 80px;
     }
 }
 
 /* 📌 반응형 디자인 (패드) */
 @media screen and (min-width: 768px) and (max-width: 1024px) {
     .sign-container {
-        grid-template-columns: repeat(9, minmax(70px, 1fr)); /* 📌 패드에서 9개씩 */
+        grid-template-columns: repeat(3, 1fr); /* 📌 패드에서 9개씩 */
         gap: 5px;
         justify-content:center;
-    }
-
-    .sign-card {
-        max-width: 90px;
     }
 }
 
 /* 📌 반응형 디자인 (데스크탑) */
 @media screen and (min-width: 1024px) {
     .sign-container {
-        grid-template-columns: repeat(9, minmax(90px, 1fr)); /* 📌 데스크탑에서 9개 유지 */
+        grid-template-columns: repeat(3, 1fr); /* 📌 데스크탑에서 9개 유지 */
         gap: 8px;
         justify-content:center;
-    }
-
-    .sign-card {
-        max-width: 100px;
     }
 }
