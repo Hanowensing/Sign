@@ -42,17 +42,6 @@ main {
     text-align: center;
 }
 
-#savedSignContainer {
-    width: 100%;  /* main 요소의 90% */
-    height: 90vh; /* main 요소의 90% */
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr)); /* ✅ 항상 3개씩 균등 배치 */
-    justify-content: center; /* 왼쪽 정렬 */
-    align-content: start; /* 위쪽 정렬 */
-    overflow-y: auto; /* 스크롤 허용 */
-    border: 2px solid black; /* 디버깅용 */
-    padding: 10px; /* 내부 여백 추가 */
-}
 .sign-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* ✅ 3개씩 배치 */
