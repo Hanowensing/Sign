@@ -157,7 +157,6 @@ main {
     width: 100%;
     max-width: 50px; /* ✅ 액자의 최대 너비 제한 */
     height: 50px; /* 📌 카드 높이 일정 */
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .sign-title {
