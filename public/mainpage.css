@@ -13,15 +13,6 @@ body {
     margin: auto; /* ✅ 좌우 여백 자동 조정 */
 }
 
-.button-container {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* 버튼 간격 */
-    position: absolute;
-    top: 10px;
-    right: 20px;
-}
-
 h1 {
     font-size: 1.3rem;
     margin-bottom: 10px;
@@ -52,14 +43,17 @@ main {
 }
 
 #savedSignContainer {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px; /* 사진 간격 */
-    margin-top: 20px;
-    justify-content: flex-start; /* 왼쪽 정렬 */
-    border: none; /* ❌ 테두리 제거 */
+    width: 90%;  /* main 요소의 90% */
+    height: 90%; /* main 요소의 90% */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* 100px 이상, 가능한 최대 개수 */
+    gap: 10px;  /* 사진 간격 */
+    justify-content: start; /* 왼쪽 정렬 */
+    align-content: start; /* 위쪽 정렬 */
+    overflow-y: auto; /* 스크롤 허용 */
+    border: 2px solid black; /* 디버깅용 */
+    padding: 10px; /* 내부 여백 추가 */
 }
-
 .sign-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* ✅ 3개씩 배치 */
@@ -113,11 +107,14 @@ main {
 
 /* "+" 버튼 */
 .plus-btn {
-    font-size: 26px;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
+    position: absolute;
+    top: 10px;
+    right: 90px;
+    font-size: 40px;
     background: none;
+    border: none;
+    color: #333;
+    cursor: pointer;
 }
 
 /* 액션 메뉴 */
@@ -149,19 +146,10 @@ main {
     background-color: #f0f0f0;
 }
 
-* ✅ 삭제 선택 체크박스 위치 조정 */
-.delete-radio {
-    display: none; /* 기본적으로 숨김 */
-    position: relative;
-    margin-top: 8px; /* 사진 아래에 배치 */
-    cursor: pointer;
-    width: 20px;
-    height: 20px;
-}
-
 /* ✅ 액자 스타일 */
 .sign-card {
     background-color: white;
+    border: 2px solid black;
     border-radius: 10px; /* ✅ 둥근 모서리 */
     display: flex;
     flex-direction: column;
@@ -170,6 +158,7 @@ main {
     width: 100%;
     max-width: 50px; /* ✅ 액자의 최대 너비 제한 */
     height: 50px; /* 📌 카드 높이 일정 */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .sign-title {
@@ -217,17 +206,6 @@ main {
 /* 삭제 버튼 호버 효과는 그대로 */
 .delete-btn:hover {
     background-color: #f0f0f0;
-}
-
-.trash-btn {
-    font-size: 24px; /* 크기 통일 */
-    border: none;
-    cursor: pointer;
-    padding: 5px;
-    background: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 /* ✅ 반응형 디자인 (모바일 600px 이하) */
