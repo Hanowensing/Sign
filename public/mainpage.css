@@ -6,11 +6,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;  /* 중앙 정렬을 위한 flex 속성 추가 */
-    height: 100vh; /* 화면 높이에 맞게 전체 중앙 정렬 */
-    width: 100vw; /* ✅ 전체 너비 설정 */
-      max-width: 1200px; /* ✅ 중앙 정렬을 위한 최대 너비 설정 */
-    margin: auto; /* ✅ 좌우 여백 자동 조정 */
+    justify-content: center;
+    height: 100vh;
+    width: 100vw; /* ✅ 화면 전체 너비를 차지 */
 }
 
 h1 {
@@ -32,29 +30,34 @@ h3{
     color:gray;
 }
 
+/* ✅ `main`을 항상 중앙 정렬 */
 main {
-    width: 90vw;  /* 화면 너비의 90% */
-    height: 80vh; /* 화면 높이의 80% */
+    width: 100vw; /* ✅ 화면 전체 너비 사용 */
+    max-width: 1200px;
+    height: 80vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; /* ✅ 내부 요소 중앙 정렬 */
     justify-content: center;
     text-align: center;
+    margin: 0 auto; /* ✅ 가로 중앙 정렬 */
+    overflow: hidden;
 }
 
 .sign-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* ✅ 항상 3개씩 유지 */
+    width: 100%;
+    max-width: 1000px;
+    height: auto;
+    display: grid; /* ✅ `display: grid` 유지 */
+    grid-template-columns: repeat(3, 1fr); /* ✅ 항상 3개 유지 */
     gap: 15px;
-    width: 100%; /* ✅ main 요소에 맞춤 */
-    max-width: 1000px; /* ✅ main의 max-width와 동일하게 설정 */
-    max-height: 100%; /* ✅ main의 높이를 벗어나지 않도록 제한 */
-    margin: auto;
-    padding: 10px;
-    justify-content: center;
+    justify-content: center; /* ✅ 내부 요소 중앙 정렬 */
     align-content: center;
-    overflow-y: auto; /* ✅ 스크롤 허용 */
+    padding: 10px;
+    overflow-y: auto;
+    border: 2px solid black;
 }
+
 /* 프로필 위치를 왼쪽 상단에 고정 */
 .user-profile {
     position: absolute;
