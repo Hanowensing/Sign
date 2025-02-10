@@ -42,6 +42,18 @@ main {
     text-align: center;
 }
 
+#savedSignContainer {
+    width: 100%;  /* main 요소의 90% */
+    height: 90%; /* main 요소의 90% */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* 100px 이상, 가능한 최대 개수 */
+    gap: 10px;  /* 사진 간격 */
+    justify-content: center; /* 왼쪽 정렬 */
+    align-content: start; /* 위쪽 정렬 */
+    overflow-y: auto; /* 스크롤 허용 */
+    border: 2px solid black; /* 디버깅용 */
+    padding: 10px; /* 내부 여백 추가 */
+}
 .sign-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* ✅ 3개씩 배치 */
@@ -199,26 +211,38 @@ main {
 /* ✅ 반응형 디자인 (모바일 600px 이하) */
 @media screen and (max-width: 600px) {
     .sign-container {
-        grid-template-columns: repeat(3, 1fr); /* 📌 모바일에서 3개 유지 */
+        grid-template-columns: repeat(3, minmax(70px, 1fr)); /* 📌 모바일에서 3개 유지 */
         gap: 3px; /* 📌 간격 더 줄이기 */
         justify-content:center;
+    }
+
+    .sign-card {
+        max-width: 80px;
     }
 }
 
 /* 📌 반응형 디자인 (패드) */
 @media screen and (min-width: 768px) and (max-width: 1024px) {
     .sign-container {
-        grid-template-columns: repeat(3, 1fr); /* 📌 패드에서 9개씩 */
+        grid-template-columns: repeat(9, minmax(70px, 1fr)); /* 📌 패드에서 9개씩 */
         gap: 5px;
         justify-content:center;
+    }
+
+    .sign-card {
+        max-width: 90px;
     }
 }
 
 /* 📌 반응형 디자인 (데스크탑) */
 @media screen and (min-width: 1024px) {
     .sign-container {
-        grid-template-columns: repeat(3, 1fr); /* 📌 데스크탑에서 9개 유지 */
+        grid-template-columns: repeat(9, minmax(90px, 1fr)); /* 📌 데스크탑에서 9개 유지 */
         gap: 8px;
         justify-content:center;
+    }
+
+    .sign-card {
+        max-width: 100px;
     }
 }
