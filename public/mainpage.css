@@ -47,7 +47,7 @@ main {
     grid-template-columns: repeat(3, 1fr); /* ✅ 항상 3개씩 유지 */
     gap: 15px;
     width: 100%; /* ✅ main 요소에 맞춤 */
-    max-width: inherit; /* ✅ main의 max-width와 동일하게 설정 */
+    max-width: 1000px; /* ✅ main의 max-width와 동일하게 설정 */
     max-height: 100%; /* ✅ main의 높이를 벗어나지 않도록 제한 */
     margin: auto;
     padding: 10px;
@@ -202,6 +202,7 @@ main {
     .sign-container {
         grid-template-columns: repeat(3, 1fr); /* ✅ 모바일에서도 무조건 3개 유지 */
         gap: 3px;
+        justify-content: center;
     }
 }
 
@@ -209,6 +210,7 @@ main {
     .sign-container {
         grid-template-columns: repeat(3, 1fr); /* ✅ 태블릿에서도 무조건 3개 유지 */
         gap: 5px;
+        justify-content: center;
     }
 }
 
@@ -216,5 +218,6 @@ main {
     .sign-container {
         grid-template-columns: repeat(3, 1fr); /* ✅ 데스크탑에서도 무조건 3개 유지 */
         gap: 8px;
+        justify-content: center;
     }
 }
