@@ -16,17 +16,23 @@ document.addEventListener("DOMContentLoaded", function () {
         header.appendChild(userProfile);
     }
 
+    // ✅ 버튼 컨테이너 생성 (플러스 + 휴지통 버튼 같이 정렬)
+    const buttonContainer = document.createElement("div");
+    buttonContainer.classList.add("button-container");
+
     // ✅ "+" 버튼 (새로운 사인 추가)
     const plusButton = document.createElement("button");
     plusButton.classList.add("plus-btn");
     plusButton.textContent = "+";
-    document.querySelector("header").appendChild(plusButton);
 
     // ✅ 휴지통 버튼 (선택적 삭제)
     const trashButton = document.createElement("button");
     trashButton.classList.add("trash-btn");
     trashButton.innerHTML = "🗑️"; // 휴지통 아이콘
-    document.querySelector("header").appendChild(trashButton);
+
+    buttonContainer.appendChild(plusButton);
+    buttonContainer.appendChild(trashButton);
+    document.querySelector("header").appendChild(buttonContainer);
 
     let isSelectionMode = false;  // ✅ 선택 모드 활성화 여부
     let selectedSigns = new Set(); // ✅ 선택된 사인의 인덱스 저장
@@ -36,10 +42,10 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = "create.html";
     });
 
-    // ✅ 휴지통 버튼 클릭 시 삭제 모드 활성화
+    // ✅ 휴지통 버튼 클릭 시 삭제 모드 활성화 (사진 아래 radio 버튼 추가)
     trashButton.addEventListener("click", function () {
         if (isSelectionMode) {
-            // ✅ 선택된 사인만 삭제
+            // ✅ 선택된 사인 삭제
             if (selectedSigns.size === 0) {
                 alert("삭제할 사인을 선택하세요!");
                 return;
@@ -48,12 +54,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 deleteSelectedSigns();
             }
             isSelectionMode = false;
-            trashButton.style.color = ""; // 색상 초기화
         } else {
             isSelectionMode = true;
-            trashButton.style.color = "red"; // 삭제 모드 표시
-            alert("삭제할 사인을 선택하세요!");
         }
+        updateSelectionMode();
     });
 
     // ✅ 저장된 사인 불러오기
@@ -102,22 +106,28 @@ document.addEventListener("DOMContentLoaded", function () {
                 this.alt = "이미지 로드 실패";
             };
 
+            // ✅ 삭제 선택을 위한 라디오 버튼 추가 (기본적으로 숨김)
+            const radioElem = document.createElement("input");
+            radioElem.type = "radio";
+            radioElem.name = "signSelection"; // 하나만 선택 가능하도록 그룹 지정
+            radioElem.classList.add("delete-radio");
+            radioElem.dataset.index = index;
+            radioElem.style.display = "none"; // 기본적으로 숨김
+
             signCard.appendChild(imgElem);
+            signCard.appendChild(radioElem);
             container.appendChild(signCard);
+        });
 
-            // ✅ 사인 클릭 이벤트 (삭제 모드일 때만 동작)
-            signCard.addEventListener("click", function () {
-                if (!isSelectionMode) return;
+        updateSelectionMode(); // 선택 모드 적용
+    }
 
-                const index = signCard.dataset.index;
-                if (selectedSigns.has(index)) {
-                    selectedSigns.delete(index);
-                    signCard.style.opacity = "1"; // 선택 해제
-                } else {
-                    selectedSigns.add(index);
-                    signCard.style.opacity = "0.5"; // 선택됨 (반투명 효과)
-                }
-            });
+    /**
+     * ✅ 선택 모드 UI 업데이트 (radio 버튼 표시/숨김)
+     */
+    function updateSelectionMode() {
+        document.querySelectorAll(".delete-radio").forEach(radio => {
+            radio.style.display = isSelectionMode ? "block" : "none";
         });
     }
 
@@ -126,7 +136,10 @@ document.addEventListener("DOMContentLoaded", function () {
      */
     function deleteSelectedSigns() {
         let savedSigns = JSON.parse(localStorage.getItem("savedSigns")) || [];
-        let newSigns = savedSigns.filter((_, index) => !selectedSigns.has(index));
+        let newSigns = savedSigns.filter((_, index) => {
+            const radio = document.querySelector(`.delete-radio[data-index="${index}"]`);
+            return !radio || !radio.checked; // 체크된 항목만 삭제
+        });
 
         localStorage.setItem("savedSigns", JSON.stringify(newSigns));
         selectedSigns.clear();
